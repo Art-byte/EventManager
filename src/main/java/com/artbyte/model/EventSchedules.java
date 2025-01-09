@@ -6,19 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.List;
+
+import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "event")
-public class Event {
+@Document(collection = "event_schedules")
+public class EventSchedules {
+
     @Id
     private String id;
-    private String eventName;
-    private String location;
-    private List<String> eventScheduleId; //Horarios del evento
-    private List<String> ticketPriceId; //Precios de boleto
-    private String seatingId;
+    private Date beginDateTime; // Fecha y hora de inicio
+    private Date endDateTime;   // Fecha y hora de fin
+
 }

@@ -22,9 +22,9 @@ public class Ticket {
     private String fullName;
     private String email;
     private String phone;
-    private String eventId;
-    private String ticketTypeId;
-    private List<String> seating;
+    private String eventId; //Id del Evento seleccionado
+    private String ticketPriceId; //Id del boleto seleccionado
+    private List<String> seatingName; // Asiendo o asientos asignados
+    private Integer totalTicketsPay; //Total de boletos comprados
     private Date createAt;
-    private Integer totalTicketsPay;
 }
