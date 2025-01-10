@@ -25,5 +25,8 @@ public class Seating {
         private String id;
         private String name; //A1, A2, etc...
         private Integer status; //Vendido, Reservado, Disponible
+        private String seatingCode; //Codigo autogenerado
+        private boolean isChecked; //Cuando el boleto sea escaneado
+
     }
 }
