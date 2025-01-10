@@ -24,6 +24,6 @@ public class Seating {
     static class SeatingName{
         private String id;
         private String name; //A1, A2, etc...
-        private String status; //Vendido, Reservado, Disponible
+        private Integer status; //Vendido, Reservado, Disponible
     }
 }
