@@ -39,25 +39,47 @@ public class TicketPriceServiceImpl implements TicketPriceService {
 
     @Override
     public TicketPrice createTicketPrice(TicketPrice ticketPrice) {
-        return ticketPriceRepository.save(ticketPrice);
+        TicketPrice ticket = getByTicketType(ticketPrice.getTicketType());
+        ticket.setStatus(TicketPriceConstant.ACTIVE.name);
+        return ticketPriceRepository.save(ticket);
     }
 
     @Override
     public void updateTicketPriceInfo(String ticketPriceId, TicketPrice ticketPrice) {
-        TicketPrice ticketPriceObj = ticketPriceRepository.findById(ticketPriceId)
-                .orElseThrow(() -> new TicketPriceException("No se encontro el Ticket Price solicitado por ID"));
+        TicketPrice existingTicketPrice = getTicketPriceById(ticketPriceId);
+        boolean hasChanges = false;
 
-        ticketPriceObj.setTicketType(ticketPrice.getTicketType());
-        ticketPriceObj.setPrice(ticketPrice.getPrice());
-        ticketPriceObj.setQuantityAvailable(ticketPrice.getQuantityAvailable());
-        ticketPriceObj.setStatus(TicketPriceConstant.ACTIVE.name);
-        ticketPriceRepository.save(ticketPriceObj);
+        if (!existingTicketPrice.getTicketType().equals(ticketPrice.getTicketType())) {
+            existingTicketPrice.setTicketType(ticketPrice.getTicketType());
+            hasChanges = true;
+        }
+
+        if (!existingTicketPrice.getPrice().equals(ticketPrice.getPrice())) {
+            existingTicketPrice.setPrice(ticketPrice.getPrice());
+            hasChanges = true;
+        }
+
+        if (!existingTicketPrice.getQuantityAvailable().equals(ticketPrice.getQuantityAvailable())) {
+            existingTicketPrice.setQuantityAvailable(ticketPrice.getQuantityAvailable());
+            hasChanges = true;
+        }
+
+        if (!existingTicketPrice.getStatus().equals(TicketPriceConstant.ACTIVE.name)) {
+            existingTicketPrice.setStatus(TicketPriceConstant.ACTIVE.name);
+            hasChanges = true;
+        }
+
+        if (hasChanges) {
+            ticketPriceRepository.save(existingTicketPrice);
+        } else {
+            throw new TicketPriceException("No se detectaron cambios para actualizar el Ticket Price.");
+        }
     }
+
 
     @Override
     public void updateQuantityTicket(String ticketPriceId, boolean addQuantity, Integer quantity) {
-        TicketPrice ticketPriceObj = ticketPriceRepository.findById(ticketPriceId)
-                .orElseThrow(() -> new TicketPriceException("No se encontró el Ticket Price solicitado por ID"));
+        TicketPrice ticketPriceObj = getTicketPriceById(ticketPriceId);
         int newQuantity = addQuantity
                 ? ticketPriceObj.getQuantityAvailable() + quantity
                 : ticketPriceObj.getQuantityAvailable() - quantity;
@@ -73,8 +95,7 @@ public class TicketPriceServiceImpl implements TicketPriceService {
         if (value != 1 && value != 0) {
             throw new TicketPriceException("El valor de estado proporcionado no es válido.");
         }
-        TicketPrice ticketPriceObj = ticketPriceRepository.findById(ticketPriceId)
-                .orElseThrow(() -> new TicketPriceException("No se encontró el Ticket Price solicitado por ID"));
+        TicketPrice ticketPriceObj = getTicketPriceById(ticketPriceId);
         String newStatus = (value == 1) ? TicketPriceConstant.ACTIVE.name : TicketPriceConstant.INACTIVE.name;
         ticketPriceObj.setStatus(newStatus);
         ticketPriceRepository.save(ticketPriceObj);

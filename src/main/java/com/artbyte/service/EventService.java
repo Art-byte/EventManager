@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface EventService {
     List<Event> getAllEvents();
-    Event findByEventName(String eventName);
-    Event findById(String id);
-    Event findByLocation(String location);
-    Event updateEvent(String id, Event event);
+    Event getByEventName(String eventName);
+    Event getById(String id);
+    List<Event> getByLocation(String location);
+    void updateEvent(String id, Event event);
+    void updateEventSchedule(String id, List<String> eventSchedulesIds);
     void createEvent(Event event);
     void deleteEvent(String id);
 }

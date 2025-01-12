@@ -19,5 +19,4 @@ public class TicketPrice {
     private Double price;
     private Integer quantityAvailable;
     private String status;
-
 }
