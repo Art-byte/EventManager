@@ -13,11 +13,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "ticket_price")
 public class TicketPrice {
-
     @Id
     private String id;
     private String ticketType;
     private Double price;
     private Integer quantityAvailable;
+    private String status;
 
 }

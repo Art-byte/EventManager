@@ -1,6 +1,7 @@
 package com.artbyte.handlers;
 
 import com.artbyte.exceptions.EventException;
+import com.artbyte.exceptions.TicketPriceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -34,6 +35,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EventException.class)
     public ResponseEntity<String> handleEventException(EventException e){
         LOGGER.error("Event exception: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(e.getMessage());
+    }
+
+    // Excepcion para los TicketPrice
+    @ExceptionHandler(TicketPriceException.class)
+    public ResponseEntity<String> handleTicketPricetException(TicketPriceException e){
+        LOGGER.error("TicketType exception: {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
     }
