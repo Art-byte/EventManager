@@ -26,17 +26,20 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event findByEventName(String eventName) {
-        Event event = eventRepository.findByEventName(eventName);
-        if(event == null){
-            throw new EventException("Evento no encontrado");
-        }
-        return event;
+        return eventRepository.findByEventName(eventName)
+                .orElseThrow(()-> new EventException("Evento no encontrado por NAME"));
     }
 
     @Override
     public Event findById(String id) {
         return eventRepository.findById(id)
-                .orElseThrow(() -> new EventException("Evento no encontrado"));
+                .orElseThrow(() -> new EventException("Evento no encontrado por ID"));
+    }
+
+    @Override
+    public Event findByLocation(String location) {
+        return eventRepository.findByLocation(location)
+                .orElseThrow(() -> new EventException("Evento no encontrado por LOCATION"));
     }
 
     @Override
@@ -47,7 +50,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event updateEvent(String id, Event event) {
         Event eventObj = eventRepository.findById(id)
-                .orElseThrow(() -> new EventException("Evento no encontrado"));
+                .orElseThrow(() -> new EventException("Evento no encontrado por ID"));
         eventObj.setEventName(event.getEventName());
         eventObj.setLocation(event.getLocation());
         eventObj.setEventScheduleId(event.getEventScheduleId());
