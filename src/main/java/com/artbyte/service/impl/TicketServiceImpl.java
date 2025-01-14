@@ -1,8 +1,10 @@
 package com.artbyte.service.impl;
 
+import com.artbyte.exceptions.TicketException;
+import com.artbyte.model.Event;
 import com.artbyte.model.Ticket;
+import com.artbyte.repository.EventRepository;
 import com.artbyte.repository.TicketRepository;
-import com.artbyte.service.EventService;
 import com.artbyte.service.TickerService;
 import com.artbyte.service.TicketPriceService;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +17,15 @@ import java.util.Date;
 public class TicketServiceImpl implements TickerService {
 
     private final TicketRepository ticketRepository;
-    private final EventService eventService;
-    private final TicketPriceService ticketPriceService;
+    private final EventRepository eventRepository;
 
     @Override
     public Ticket createTicket(Ticket ticket) {
+        //Validamos que exista el evento
+        if(!validateEventAvailable(ticket.getEventId())){
+            throw new TicketException("El evento no esta disponible");
+        }
+
         Ticket createdTicket = Ticket.builder()
                 .fullName(ticket.getFullName())
                 .email(ticket.getEmail())
@@ -32,5 +38,9 @@ public class TicketServiceImpl implements TickerService {
                 .build();
         ticketRepository.save(createdTicket);
         return createdTicket;
+    }
+
+    private boolean validateEventAvailable(String eventId){
+         return eventRepository.existsById(eventId);
     }
 }

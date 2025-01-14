@@ -24,7 +24,7 @@ public class Ticket {
     private String phone;
     private String eventId; //Id del Evento seleccionado
     private String ticketPriceId; //Id del boleto seleccionado
-    private List<String> seatingName; // Asiendo o asientos asignados
+    private List<String> seatingName; // Asiendo o asientos asignados ejem A1, A2, A3
     private Integer totalTicketsPay; //Total de boletos comprados
     private Date createAt;
 }
