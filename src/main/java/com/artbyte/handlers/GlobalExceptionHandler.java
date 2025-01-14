@@ -1,6 +1,7 @@
 package com.artbyte.handlers;
 
 import com.artbyte.exceptions.EventException;
+import com.artbyte.exceptions.TicketException;
 import com.artbyte.exceptions.TicketPriceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TicketPriceException.class)
     public ResponseEntity<String> handleTicketPricetException(TicketPriceException e){
         LOGGER.error("TicketType exception: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(e.getMessage());
+    }
+
+    //Excepcion para el ticket
+    @ExceptionHandler(TicketException.class)
+    public ResponseEntity<String> handlerTicketException(TicketException e){
+        LOGGER.error("Ticket exception: {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(e.getMessage());
     }
