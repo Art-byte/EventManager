@@ -1,12 +1,10 @@
 package com.artbyte.service.impl;
 
 import com.artbyte.exceptions.TicketException;
-import com.artbyte.model.Event;
 import com.artbyte.model.Ticket;
 import com.artbyte.repository.EventRepository;
 import com.artbyte.repository.TicketRepository;
 import com.artbyte.service.TickerService;
-import com.artbyte.service.TicketPriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +30,7 @@ public class TicketServiceImpl implements TickerService {
                 .phone(ticket.getPhone())
                 .eventId(ticket.getEventId())
                 .ticketPriceId(ticket.getTicketPriceId())
+                .eventScheduleId(ticket.getEventScheduleId())
                 .seatingName(ticket.getSeatingName())
                 .totalTicketsPay(ticket.getTotalTicketsPay())
                 .createAt(new Date())
