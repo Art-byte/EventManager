@@ -20,5 +20,6 @@ public class EventSchedules {
     private String id;
     private Date beginDateTime; // Fecha y hora de inicio
     private Date endDateTime;   // Fecha y hora de fin
+    private String status;
 
 }
