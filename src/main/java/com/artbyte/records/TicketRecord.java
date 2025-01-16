@@ -13,10 +13,10 @@ public record TicketRecord(
 
         //TicketPrice
         String ticketType,
-        String ticketPrice,
+        Double ticketPrice,
 
         //Ticket
-        Integer totalTickets,
+        Integer totalTicketsPay,
         String fullName,
         String email,
         String phone,
