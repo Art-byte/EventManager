@@ -5,8 +5,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Repository
 public interface EventSchedulesRepository extends MongoRepository<EventSchedules, String> {
-    EventSchedules findByBeginDateTime(Date beginDateTime);
+    Optional<EventSchedules> findByBeginDateTime(Date beginDateTime);
 }

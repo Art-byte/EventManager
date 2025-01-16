@@ -10,5 +10,5 @@ public interface EventSchedulesService {
     EventSchedules getById(String id);
     EventSchedules findByBeginDateTime(Date beginDateTime);
     void createNewSchedule(EventSchedules eventSchedules);
-    void disableSchedule(String status);
+    void disableSchedule(String id, String status);
 }

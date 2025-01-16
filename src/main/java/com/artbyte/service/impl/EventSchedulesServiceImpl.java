@@ -1,5 +1,6 @@
 package com.artbyte.service.impl;
 
+import com.artbyte.exceptions.EventSchedulesException;
 import com.artbyte.model.EventSchedules;
 import com.artbyte.repository.EventSchedulesRepository;
 import com.artbyte.service.EventSchedulesService;
@@ -16,21 +17,25 @@ public class EventSchedulesServiceImpl implements EventSchedulesService {
 
     @Override
     public EventSchedules getById(String id) {
-        return null;
+        return eventSchedulesRepository.findById(id)
+                .orElseThrow(() -> new EventSchedulesException("Esquema no encontrado por ID"));
     }
 
     @Override
     public EventSchedules findByBeginDateTime(Date beginDateTime) {
-        return null;
+        return eventSchedulesRepository.findByBeginDateTime(beginDateTime)
+                .orElseThrow(() -> new EventSchedulesException("Esquema no encontrado por FECHA"));
     }
 
     @Override
     public void createNewSchedule(EventSchedules eventSchedules) {
-
+        eventSchedulesRepository.save(eventSchedules);
     }
 
     @Override
-    public void disableSchedule(String status) {
-
+    public void disableSchedule(String id, String status) {
+        EventSchedules schedule = getById(id);
+        schedule.setStatus(status);
+        eventSchedulesRepository.save(schedule);
     }
 }
