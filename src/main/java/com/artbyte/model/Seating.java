@@ -21,7 +21,7 @@ public class Seating {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    static class SeatingName{
+    public static class SeatingName{
         private String id;
         private String name; //A1, A2, etc...
         private Integer status; //Vendido, Reservado, Disponible
