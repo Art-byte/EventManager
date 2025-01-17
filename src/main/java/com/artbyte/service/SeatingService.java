@@ -9,6 +9,6 @@ public interface SeatingService {
     void createSeating(Seating seating);
 
     Seating.SeatingName getSeatingNameByName(String seatingId, String SeatingName);
-    void changeStatusToSeating(String status);
-    void changeCheckedFromTicket(boolean checked);
+    void changeStatusToSeating(String idSeating, String nameSeating, Integer status);
+    void changeCheckedFromTicket(String idSeating, String nameSeating, boolean checked);
 }
