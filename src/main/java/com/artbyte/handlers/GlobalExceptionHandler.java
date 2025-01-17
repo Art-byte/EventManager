@@ -1,9 +1,6 @@
 package com.artbyte.handlers;
 
-import com.artbyte.exceptions.EventException;
-import com.artbyte.exceptions.EventSchedulesException;
-import com.artbyte.exceptions.TicketException;
-import com.artbyte.exceptions.TicketPriceException;
+import com.artbyte.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -65,4 +62,11 @@ public class GlobalExceptionHandler {
                 .body(e.getMessage());
     }
 
+    //Excepcion para los asientos
+    @ExceptionHandler(SeatingException.class)
+    public ResponseEntity<String> handlerSeatingException(SeatingException e){
+        LOGGER.error("Seating exception: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(e.getMessage());
+    }
 }
