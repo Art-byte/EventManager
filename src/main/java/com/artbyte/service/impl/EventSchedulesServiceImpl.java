@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,13 +17,22 @@ public class EventSchedulesServiceImpl implements EventSchedulesService {
     private final EventSchedulesRepository eventSchedulesRepository;
 
     @Override
+    public List<EventSchedules> getAllEvents() {
+        List<EventSchedules> list = eventSchedulesRepository.findAll();
+        if(list.isEmpty()){
+            throw new EventSchedulesException("Lista de esquemas vacia");
+        }
+        return list;
+    }
+
+    @Override
     public EventSchedules getById(String id) {
         return eventSchedulesRepository.findById(id)
                 .orElseThrow(() -> new EventSchedulesException("Esquema no encontrado por ID"));
     }
 
     @Override
-    public EventSchedules findByBeginDateTime(Date beginDateTime) {
+    public EventSchedules getByBeginDateTime(Date beginDateTime) {
         return eventSchedulesRepository.findByBeginDateTime(beginDateTime)
                 .orElseThrow(() -> new EventSchedulesException("Esquema no encontrado por FECHA"));
     }
