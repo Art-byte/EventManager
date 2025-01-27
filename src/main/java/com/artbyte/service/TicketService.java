@@ -2,6 +2,6 @@ package com.artbyte.service;
 
 import com.artbyte.model.Ticket;
 
-public interface TickerService {
+public interface TicketService {
     Ticket createTicket(Ticket ticket);
 }

@@ -4,7 +4,7 @@ import com.artbyte.exceptions.TicketException;
 import com.artbyte.model.Ticket;
 import com.artbyte.repository.EventRepository;
 import com.artbyte.repository.TicketRepository;
-import com.artbyte.service.TickerService;
+import com.artbyte.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class TicketServiceImpl implements TickerService {
+public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
     private final EventRepository eventRepository;
